@@ -1,5 +1,4 @@
-# last-world-charger
-
+# Last World Charger
 Last World Charger is a tiny mod that add a button on the main menu which load the last singleplayer played world.
 
 ## Modpack policy
