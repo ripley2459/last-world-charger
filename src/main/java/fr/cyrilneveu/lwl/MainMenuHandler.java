@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainMenuHandler {
-    public static final int LAST_PLAYED_BUTTON_ID = 45;
+    public static final int LAST_PLAYED_BUTTON_ID = 24591;
 
     /**
      * Add the button to load the last played world in the button list of the opened gui.
