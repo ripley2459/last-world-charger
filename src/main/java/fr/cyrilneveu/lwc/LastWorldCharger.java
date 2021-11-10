@@ -1,5 +1,6 @@
 package fr.cyrilneveu.lwc;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -11,18 +12,15 @@ public class LastWorldCharger {
     public static final String MOD_ID = "lwc";
     public static final String NAME = "Last World Charger";
     public static final String VERSION = "1";
-
-    @Mod.Instance(LastWorldCharger.MOD_ID)
-    public static LastWorldCharger instance;
-    @SidedProxy(clientSide = "fr.cyrilneveu.lwc.ProxyClient", serverSide = "fr.cyrilneveu.lwc.ProxyServer")
-    public static ProxyCommon proxy;
+    @SidedProxy(clientSide = "fr.cyrilneveu.lwc.ProxyClient")
+    public static ProxyClient proxy;
     public static Logger logger;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
-        proxy.preInit(event.getSuggestedConfigurationFile());
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 
     @Mod.EventHandler

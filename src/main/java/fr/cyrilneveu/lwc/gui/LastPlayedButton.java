@@ -1,5 +1,6 @@
-package fr.cyrilneveu.lwc;
+package fr.cyrilneveu.lwc.gui;
 
+import fr.cyrilneveu.lwc.LastWorldCharger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
