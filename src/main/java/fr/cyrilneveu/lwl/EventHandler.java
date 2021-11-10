@@ -1,4 +1,4 @@
-package fr.cyrilneveu.lwc;
+package fr.cyrilneveu.lwl;
 
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiScreenEvent;

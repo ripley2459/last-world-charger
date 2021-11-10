@@ -1,4 +1,4 @@
-package fr.cyrilneveu.lwc;
+package fr.cyrilneveu.lwl;
 
 import java.io.File;
 

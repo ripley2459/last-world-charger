@@ -1,6 +1,6 @@
-package fr.cyrilneveu.lwc;
+package fr.cyrilneveu.lwl;
 
-import fr.cyrilneveu.lwc.gui.LastPlayedButton;
+import fr.cyrilneveu.lwl.gui.LastPlayedButton;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
