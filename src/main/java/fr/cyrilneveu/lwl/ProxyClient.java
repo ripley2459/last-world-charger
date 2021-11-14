@@ -1,8 +1,8 @@
-package fr.cyrilneveu.lwc;
+package fr.cyrilneveu.lwl;
 
 import java.io.File;
 
-public class ProxyCommon {
+public class ProxyClient {
     public void preInit(File configFile)
     {
         System.out.println("Common preInit.");

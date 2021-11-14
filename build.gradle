@@ -15,8 +15,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'fr.cyrilneveu.lwc' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'lwc'
+group = 'fr.cyrilneveu.lwl' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'lwl'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -86,12 +86,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "lwc",
-            "Specification-Vendor": "lwcsareus",
+            "Specification-Title": "lwl",
+            "Specification-Vendor": "lwlsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"lwcsareus",
+            "Implementation-Vendor" :"lwlsareus",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
