@@ -56,7 +56,6 @@ public class LastPlayedButton extends ImageButton {
             if (worldSummaryList.size() > 0) {
                 Collections.sort(worldSummaryList);
                 WorldSummary lastWorldSummary = worldSummaryList.get(0);
-                // minecraft.launchIntegratedServer(lastWorldSummary.getFileName(), lastWorldSummary.getDisplayName(), null);
                 minecraft.loadWorld(lastWorldSummary.getFileName());
             }
         } catch (AnvilConverterException e) {
