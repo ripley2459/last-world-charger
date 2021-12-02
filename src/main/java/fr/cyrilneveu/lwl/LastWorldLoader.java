@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 public class LastWorldLoader
 {
     public static final String MOD_ID = "lwl";
+    public static final String MOD_VERSION = "1.18";
 
     public LastWorldLoader() {
         MinecraftForge.EVENT_BUS.register(this);

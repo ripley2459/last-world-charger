@@ -1,15 +1,15 @@
 package fr.cyrilneveu.lwl.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import fr.cyrilneveu.lwl.LastWorldLoader;
-import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.storage.WorldSummary;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.LevelStorageException;
+import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 
@@ -26,7 +26,7 @@ public class LastPlayedButton extends ImageButton {
     private final int textureHeight;
 
     public LastPlayedButton(int x, int y, int width, int height) {
-        super(x, y, width, height, 0, 0, 0, BUTTON, 20, 40, LastPlayedButton::LoadLastWorld, ITextComponent.getTextComponentOrEmpty(""));
+        super(x, y, width, height, 0, 0, 0, BUTTON, 20, 40, LastPlayedButton::LoadLastWorld);
         this.xTexStart = 0;
         this.yTexStart = 0;
         this.yDiffText = 20;
@@ -35,30 +35,32 @@ public class LastPlayedButton extends ImageButton {
     }
 
     @Override
-    public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        Minecraft.getInstance().getTextureManager().bindTexture(this.BUTTON);
+    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, this.BUTTON);
+
         int i = this.yTexStart;
-        if (this.isHovered()) {
+        if (this.isHoveredOrFocused()) {
             i += this.yDiffText;
         }
 
         RenderSystem.enableDepthTest();
-        blit(matrixStack, this.x, this.y, (float)this.xTexStart, (float)i, this.width, this.height, this.textureWidth, this.textureHeight);
-        if (this.isHovered()) {
-            this.renderToolTip(matrixStack, mouseX, mouseY);
+        blit(poseStack, this.x, this.y, (float)this.xTexStart, (float)i, this.width, this.height, this.textureWidth, this.textureHeight);
+        if (this.isHovered) {
+            this.renderToolTip(poseStack, mouseX, mouseY);
         }
     }
 
-    private static void LoadLastWorld(Button button) {
+    public static void LoadLastWorld(Button button) {
         try {
             Minecraft minecraft = Minecraft.getInstance();
-            List<WorldSummary> worldSummaryList = minecraft.getSaveLoader().getSaveList();
-            if (worldSummaryList.size() > 0) {
-                Collections.sort(worldSummaryList);
-                WorldSummary lastWorldSummary = worldSummaryList.get(0);
-                minecraft.loadWorld(lastWorldSummary.getFileName());
+            List<LevelSummary> worldsList = minecraft.getLevelSource().getLevelList();
+            if (worldsList.size() > 0) {
+                Collections.sort(worldsList);
+                LevelSummary lastWorldSummary = worldsList.get(0);
+                minecraft.loadLevel(lastWorldSummary.getLevelName());
             }
-        } catch (AnvilConverterException e) {
+        } catch (LevelStorageException e) {
             e.printStackTrace();
         }
     }
