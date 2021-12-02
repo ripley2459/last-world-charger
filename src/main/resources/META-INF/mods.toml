@@ -5,7 +5,7 @@ license="All rights reserved"
 [[mods]] #mandatory
 modId="lwl" #mandatory
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
-version="1.0" #mandatory
+version="4.0" #mandatory
 displayName="Last World Loader" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
