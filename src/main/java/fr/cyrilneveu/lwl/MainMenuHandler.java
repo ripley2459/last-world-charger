@@ -1,8 +1,7 @@
 package fr.cyrilneveu.lwl;
 
 import fr.cyrilneveu.lwl.gui.LastPlayedButton;
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

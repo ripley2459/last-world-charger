@@ -1,15 +1,12 @@
 package fr.cyrilneveu.lwl.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import fr.cyrilneveu.lwl.LastWorldLoader;
-import net.minecraft.client.AnvilConverterException;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.storage.WorldSummary;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.LevelStorageException;
+import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 
@@ -18,7 +15,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LastWorldLoader.MOD_ID, value = Dist.CLIENT)
 public class LastPlayedButton extends ImageButton {
-    private static final ResourceLocation BUTTON = new ResourceLocation(LastWorldLoader.MOD_ID,"textures/gui/last_played_button.png");
+    private static final ResourceLocation BUTTON = new ResourceLocation(LasWorldLoader.MOD_ID,"textures/gui/last_played_button.png");
     private final int yTexStart;
     private final int yDiffText;
     private final int xTexStart;
@@ -35,7 +32,7 @@ public class LastPlayedButton extends ImageButton {
     }
 
     @Override
-    public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft.getInstance().getTextureManager().bindTexture(this.BUTTON);
         int i = this.yTexStart;
         if (this.isHovered()) {
@@ -52,13 +49,13 @@ public class LastPlayedButton extends ImageButton {
     private static void LoadLastWorld(Button button) {
         try {
             Minecraft minecraft = Minecraft.getInstance();
-            List<WorldSummary> worldSummaryList = minecraft.getSaveLoader().getSaveList();
-            if (worldSummaryList.size() > 0) {
-                Collections.sort(worldSummaryList);
-                WorldSummary lastWorldSummary = worldSummaryList.get(0);
-                minecraft.loadWorld(lastWorldSummary.getFileName());
+            List<LevelSummary> worlds = minecraft.getLevelSource().getLevelList();
+            if (worlds.size() > 0) {
+                Collections.sort(worlds);
+                LevelSummary lastWorld = worlds.get(0);
+                minecraft.loadLevel(lastWorld.getLevelName());
             }
-        } catch (AnvilConverterException e) {
+        } catch (LevelStorageException e) {
             e.printStackTrace();
         }
     }
