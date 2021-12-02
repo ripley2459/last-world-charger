@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class LastWorldLoader {
     public static final String MOD_ID = "lwl";
     public static final String NAME = "Last World Loader";
-    public static final String VERSION = "1";
+    public static final String VERSION = "1.1";
     @SidedProxy(clientSide = "fr.cyrilneveu.lwl.ProxyClient")
     public static ProxyClient proxy;
     public static Logger logger;
