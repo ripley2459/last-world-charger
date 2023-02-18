@@ -1,4 +1,7 @@
 # Last World Loader
+[![last world loader total downloads](https://cf.way2muchnoise.eu/545930.svg "last world loader")](https://www.curseforge.com/minecraft/mc-mods/last-world-loader "last world loader total downloads")
+[![last world loader versions](https://cf.way2muchnoise.eu/versions/545930.svg "last world loader")](https://www.curseforge.com/minecraft/mc-mods/last-world-loader/files "last world loader versions")
+
 Last World Loader is a tiny mod that add a button on the main menu which load the last singleplayer played world.
 ## Modpack policy
 * You can use this mod in any modpack without express permission.
