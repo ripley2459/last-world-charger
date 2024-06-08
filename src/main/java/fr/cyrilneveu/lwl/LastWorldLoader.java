@@ -21,7 +21,7 @@ public class LastWorldLoader {
         public static void onGuiInit(GuiScreenEvent.InitGuiEvent event) {
             Screen gui = event.getGui();
             if (gui instanceof MainMenuScreen)
-                event.addWidget(new LastPlayedButton(gui.width / 2 - (100 + 20 + 4), gui.height / 4 + 48, 20, 20));
+                event.addWidget(new LastPlayedButton(gui.width / 2 - (100 + 20 + 4), gui.height / 4 + 48, 20, 20, gui));
         }
     }
 }
