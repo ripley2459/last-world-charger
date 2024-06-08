@@ -18,7 +18,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LastWorldLoader.MOD_ID, value = Dist.CLIENT)
 public class LastPlayedButton extends ImageButton {
-    private static final ResourceLocation BUTTON = new ResourceLocation(LastWorldLoader.MOD_ID,"textures/gui/last_played_button.png");
+    private static final ResourceLocation BUTTON = new ResourceLocation(LastWorldLoader.MOD_ID, "textures/gui/last_played_button.png");
     private final int yTexStart;
     private final int yDiffText;
     private final int xTexStart;
@@ -26,7 +26,7 @@ public class LastPlayedButton extends ImageButton {
     private final int textureHeight;
 
     public LastPlayedButton(int x, int y, int width, int height) {
-        super(x, y, width, height, 0, 0, 0, BUTTON, 20, 40, LastPlayedButton::LoadLastWorld, ITextComponent.getTextComponentOrEmpty(""));
+        super(x, y, width, height, 0, 0, 0, BUTTON, 20, 40, LastPlayedButton::LoadLastWorld, ITextComponent.nullToEmpty(""));
         this.xTexStart = 0;
         this.yTexStart = 0;
         this.yDiffText = 20;
@@ -34,32 +34,30 @@ public class LastPlayedButton extends ImageButton {
         this.textureHeight = 40;
     }
 
-    @Override
-    public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        Minecraft.getInstance().getTextureManager().bindTexture(this.BUTTON);
-        int i = this.yTexStart;
-        if (this.isHovered()) {
-            i += this.yDiffText;
-        }
-
-        RenderSystem.enableDepthTest();
-        blit(matrixStack, this.x, this.y, (float)this.xTexStart, (float)i, this.width, this.height, this.textureWidth, this.textureHeight);
-        if (this.isHovered()) {
-            this.renderToolTip(matrixStack, mouseX, mouseY);
-        }
-    }
-
     private static void LoadLastWorld(Button button) {
         try {
             Minecraft minecraft = Minecraft.getInstance();
-            List<WorldSummary> worldSummaryList = minecraft.getSaveLoader().getSaveList();
-            if (worldSummaryList.size() > 0) {
+            List<WorldSummary> worldSummaryList = minecraft.getLevelSource().getLevelList();
+            if (!worldSummaryList.isEmpty()) {
                 Collections.sort(worldSummaryList);
                 WorldSummary lastWorldSummary = worldSummaryList.get(0);
-                minecraft.loadWorld(lastWorldSummary.getFileName());
+                minecraft.loadLevel(lastWorldSummary.getLevelId());
             }
         } catch (AnvilConverterException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        Minecraft.getInstance().getTextureManager().bind(BUTTON);
+        int i = this.yTexStart;
+        if (this.isHovered())
+            i += this.yDiffText;
+
+        RenderSystem.enableDepthTest();
+        blit(matrixStack, this.x, this.y, (float) this.xTexStart, (float) i, this.width, this.height, this.textureWidth, this.textureHeight);
+        if (this.isHovered())
+            this.renderToolTip(matrixStack, mouseX, mouseY);
     }
 }
